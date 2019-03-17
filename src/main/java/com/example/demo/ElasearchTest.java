@@ -6,7 +6,9 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.elasticsearch.core.query.*;
+import org.springframework.data.geo.Point;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,12 +27,13 @@ public class ElasearchTest {
     @RequestMapping(value = "/index")
     public String test(){
         Shop shop = new Shop();
-        shop.setId("1812180000012");
+        shop.setId("1812180000013");
         shop.setShopName("测试1111");
         shop.setShopDesc("这是描述字段333333");
         shop.setShopDiscount(0.8);
         shop.setShopImgPath("/img/xiaomi.jpg");
-
+        GeoPoint geoPoint = GeoPoint.fromPoint( new Point( new Double( "37.12121" )  , new Double( "113.2324566" ) ) );
+        shop.setLocation( geoPoint );
         IndexQuery indexQuery  = new IndexQuery();
         indexQuery.setId(shop.getId());
         indexQuery.setObject(shop);

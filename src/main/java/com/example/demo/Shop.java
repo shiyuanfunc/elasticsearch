@@ -1,5 +1,7 @@
 package com.example.demo;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -16,6 +18,9 @@ public class Shop implements Serializable {
 	private String shopImgPath;
 	private byte[] shopData;
 	private Date createTime ;
+
+	@GeoPointField
+	private GeoPoint location ;
 
 	
 	public String getId() {
@@ -71,7 +76,15 @@ public class Shop implements Serializable {
 		this.createTime = createTime;
 	}
 
-    @Override
+	public GeoPoint getLocation() {
+		return location;
+	}
+
+	public void setLocation(GeoPoint location) {
+		this.location = location;
+	}
+
+	@Override
     public String toString() {
         return "Shop{" +
                 "id='" + id + '\'' +
